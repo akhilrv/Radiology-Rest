@@ -1,0 +1,8 @@
+Radiology Rest Module
+==========================
+
+A REST based module for the existing Radiology Module in OpenMRS.
+This is specifically for Raxa-JSS project.
+
+This will have provide the REST resources necessary for the workflow. Not the UI.
+
