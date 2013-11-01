@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.openmrs.module</groupId>
-	<artifactId>radiologyrestmodule</artifactId>
+	<artifactId>radiologyrest</artifactId>
 	<version>0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Radiology Rest Module</name>
@@ -105,6 +105,20 @@
                                 <artifactId>webservices.rest19ext-omod</artifactId>
                                 <version>1.0-SNAPSHOT</version>
                         </dependency>
+                       
+                 <!--  Added during integration from Radiology Module -->       
+                       <dependency>
+                                  <groupId>org.slf4j</groupId>
+                                  <artifactId>slf4j-api</artifactId>   
+                                  <version>1.6.1</version>                               
+                                  <scope>provided</scope>
+                        </dependency>
+                        <dependency>
+                                  <groupId>org.slf4j</groupId>
+                                  <artifactId>slf4j-log4j12</artifactId>     
+                                  <version>1.6.1</version>                             
+                                  <scope>provided</scope>
+                        </dependency>
 
 
 		</dependencies>
@@ -140,6 +154,13 @@
 			<name>OpenMRS Nexus Repository</name>
 			<url>http://mavenrepo.openmrs.org/nexus/content/repositories/public</url>
 		</repository>
+		
+		<!-- Dcm4che repositories for their libraries -->
+		<repository>
+                      <id>dcm4che</id>
+                      <name>dcm4che Repository</name>
+                      <url>http://www.dcm4che.org/maven2</url>
+        </repository>
 	</repositories>
 
 	<pluginRepositories>

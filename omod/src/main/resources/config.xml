@@ -3,93 +3,134 @@
 <module configVersion="1.2">
 	
 	<!-- Base Module Properties -->
-	<id>radiologyrestmodule</id>
+	<id>radiologyrest</id>
 	<name>${project.parent.name}</name>
 	<version>${project.parent.version}</version>
-	<package>org.openmrs.module.radiologyrestmodule</package>
-	<author>Ben Wolfe</author>
+	<package>org.openmrs.module.radiologyrest</package>
+	<author>Akhil Ravindran</author>
 	<description>
 			${project.parent.description}
 	</description>
-
-	<activator>org.openmrs.module.radiologyrestmodule.RadiologyRestModuleActivator</activator>
+	
+	<activator>${project.parent.groupId}.${project.parent.artifactId}.Activator</activator> 
 	
 	<!-- <updateURL>https://modules.openmrs.org/modules/download/@MODULE_ID@/update.rdf</updateURL> -->
 	<!-- /Base Module Properties -->
 	
 	<require_version>${openMRSVersion}</require_version>
+	<require_database_version>1.0.0</require_database_version>
 	
 	<!-- Extensions -->
 	<extension>
 		<point>org.openmrs.admin.list</point>
-		<class>org.openmrs.module.radiologyrestmodule.extension.html.AdminList</class>
+		<class>@MODULE_PACKAGE@.extension.html.AdminList</class>
 	</extension>
 	
 	
-	<!-- AOP
-	<advice>
-		<point>org.openmrs.api.FormService</point>
-		<class>@MODULE_PACKAGE@.advice.DuplicateFormAdvisor</class>
-	</advice>
-	 /AOP -->
 	
-	
-	<!-- Required Privileges 
-	<privilege>
-		<name>Form Entry</name>
-		<description>Allows user to access Form Entry pages/functions</description>
-	</privilege>
-	 /Required Privileges -->
-
-
-	<!-- Required Global Properties 
+	<!--Required Global Properties -->
 	<globalProperty>
-		<property>@MODULE_ID@.someProperty</property>
-		<defaultValue></defaultValue>
+		<property>@MODULE_ID@.mwlMppsPort</property>
+		<defaultValue>11115</defaultValue>
+		<description>Port of the DICOM MWL and MPPS server. OpenMRS MPPSSCU Client</description>
+	</globalProperty>
+	<globalProperty>
+		<property>@MODULE_ID@.storagePort</property>
+		<defaultValue>11115</defaultValue>
+		<description>Port of the DICOM storage server.</description>
+	</globalProperty>
+	<globalProperty>
+		<property>@MODULE_ID@.mwlDirectory</property>
+		<defaultValue>mwl</defaultValue>
+		<description>Directory for mwl entries. Ex: d:/tmp/mwl or /tmp/mwl</description>
+	</globalProperty>
+	<globalProperty>
+		<property>@MODULE_ID@.mppsDirectory</property>
+		<defaultValue>mpps</defaultValue>
+		<description>Directory for mpps entries</description>
+	</globalProperty>
+	<globalProperty>
+		<property>@MODULE_ID@.storageDirectory</property>
+		<defaultValue>storage</defaultValue>
+		<description>Directory for DICOM objects</description>
+	</globalProperty>
+	<globalProperty>
+		<property>@MODULE_ID@.serversAddress</property>
+		<defaultValue>localhost</defaultValue>
+		<description>IP address of the dcm4chee</description>
+	</globalProperty>
+        <globalProperty>
+		<property>@MODULE_ID@.serversPort</property>
+		<defaultValue>8081</defaultValue>
+		<description>Port of the dcm4chee Web</description>
+	</globalProperty>
+	<globalProperty>
+		<property>@MODULE_ID@.applicationEntityTitle</property>
+		<defaultValue>RADIOLOGY_MODULE</defaultValue>
+		<description>Title for this application entity.Calling application entity with respect to OpenMRS</description>
+	</globalProperty>
+        <globalProperty>
+		<property>@MODULE_ID@.calledApplicationEntityTitle</property>
+		<defaultValue>DCM4CHEE</defaultValue>
+		<description>Default application entity for DCM4CHEE. Called Application Entity with respect to OpenMRS </description>
+	</globalProperty>
+        <globalProperty>
+		<property>@MODULE_ID@.oviyamLocalServerName</property>
+		<defaultValue>oviyamlocal</defaultValue>
+		<description>Local Server name needed for deploying Oviyam. Must match the local server name created in the Oviyam UI</description>
+	</globalProperty>
+	<globalProperty>
+		<property>@MODULE_ID@.applicationUID</property>
+		<defaultValue>1.2.826.0.1.3680043.8.2186</defaultValue>
 		<description>
-			A description of the global property goes here.  The description
-			should explain enough for administrators to understand the purpose
-			and possible values for the global property.
+			You need a application root UID, this will be the prefix
+			of any module
+			DICOM object, the default value serves for debugging
+			purposes</description>
+	</globalProperty>
+	<globalProperty>
+		<property>@MODULE_ID@.studyUIDSlug</property>
+		<defaultValue>100</defaultValue>
+		<description>Example: applicationUID+studyUIDSlug+orderId could be a
+			study UID. The default value works!. Example values: 1.2, 1.1.1 (No start or end dots)
 		</description>
 	</globalProperty>
-	/Required Global Properties -->
-	
-	<!--
-	<dwr>
-		<allow>
-			<create creator="new" javascript="DWRFormEntryService">
-				<param name="class" value="org.openmrs.module.@MODULE_ID@.web.DWRFormEntryService"/>
-				<include method="enterForm"/>
-			</create>
-		</allow>
-
-		<signatures>
-			<![CDATA[
-			import @MODULE_PACKAGE@.web.DWRFormEntryService;
-			DWRFormEntryService.enterForm(Integer patientId, Integer formId, boolean useEncounter, List<String> fields);
-			]]>
-		</signatures>	
-	</dwr>
-	-->
-	
-	<!-- Servlets -->
-	<!-- Accessed through the url /pageContext()/moduleServlet/<moduleId>/<servlet-name> 
-	<servlet>
-		<servlet-name>formDownload</servlet-name>
-		<servlet-class>@MODULE_PACKAGE@.web.FormDownloadServlet</servlet-class>
-	</servlet>
-	-->
-	<!-- /Servlets -->
+	<globalProperty>
+		<property>@MODULE_ID@.specificCharacterSet</property>
+		<defaultValue>ISO-8859-1</defaultValue>
+		<description>DICOM working character set
+		</description>
+	</globalProperty>
+	<globalProperty>
+		<property>@MODULE_ID@.storageCommitmentPort</property>
+		<defaultValue>11116</defaultValue>
+		<description>Storage Commitment port that modality uses to confirm a storage of an image
+		</description>
+	</globalProperty>
+	<globalProperty>
+		<property>@MODULE_ID@.devMode</property>
+		<defaultValue>On</defaultValue>
+		<description>On/Off. On to: 
+		1. Set Provider or System developer (if provider does not have privileges) privileges to the roles created by the module
+		</description>
+	</globalProperty>
+	<!--Required Global Properties -->
 	
 	
 	<!-- Internationalization -->
-	<!-- All message codes should start with @MODULE_ID@.* -->
+	<!-- All message codes should start with moduleId.* -->	
 	<messages>
-		<lang>en</lang>
-		<file>messages.properties</file>
-	</messages>
-	
+            <lang>en</lang>
+            <file>restmessages.properties</file>
+    </messages>
+	<messages>
+		<lang>es</lang>
+		<file>messages_es.properties</file>
+	</messages>		
 	<!-- /Internationalization -->
+	
+	<mappingFiles>${omodHbmConfig}</mappingFiles>
+	
 	<require_modules>
         <require_module>org.openmrs.module.webservices.rest</require_module>
     </require_modules>

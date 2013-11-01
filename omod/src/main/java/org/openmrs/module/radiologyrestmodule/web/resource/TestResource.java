@@ -74,7 +74,6 @@ public class TestResource extends MetadataDelegatingCrudResource {
     }
 
     
-    @Override
     protected void delete(Object t, String string, RequestContext rc) throws ResponseException {
         throw new UnsupportedOperationException("Not supported yet DELETE!.");
     }
